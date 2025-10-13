@@ -1,7 +1,20 @@
+"""
+
+PDFデータをブックレット(小冊子)にして印刷できるように配列を変えるプログラム
+
+"""
+
+import sys
 from PyPDF2 import PdfReader, PdfWriter, PageObject, Transformation
 
 # PDFを読み込む
-pdf=PdfReader("sample.pdf")
+if len(sys.argv) !=3:
+    print("入力形式が不正です")
+    print("python main.py input.pdf output.pdf  という形にしてください")
+
+inputfile=sys.argv[1]
+outputfile=sys.argv[2]
+pdf=PdfReader(inputfile)
 writer=PdfWriter()
 
 
@@ -42,7 +55,7 @@ for i in L:
 
 
 
-with open("merged.pdf", "wb") as f:
+with open(outputfile, "wb") as f:
     writer.write(f)
 
 print("うまくいったぜ！")
