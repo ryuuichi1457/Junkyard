@@ -8,9 +8,10 @@ import sys
 from PyPDF2 import PdfReader, PdfWriter, PageObject, Transformation
 
 # PDFを読み込む
-if len(sys.argv) !=3:
+if not(3<=len(sys.argv)<=4):
     print("入力形式が不正です")
-    print("python main.py input.pdf output.pdf  という形にしてください")
+    print("python main.py input.pdf output.pdf (追加したい余白の最小枚数)  という形にしてください")
+    quit()
 
 inputfile=sys.argv[1]
 outputfile=sys.argv[2]
@@ -32,7 +33,10 @@ def make_index(p):
     return res[::-1]
 
 N=len(pdf.pages)
-p=((N+3)//4)#ページ数
+if len(sys.argv)==4:
+    p=((N+3+int(sys.argv[3]))//4)#ページ数
+else:
+    p=((N+3)//4)#ページ数
 L=make_index(p)
 
 
